@@ -1,16 +1,28 @@
-namespace guitarstore;
+namespace filamentManagement;
 
-entity Product {
+entity Manufacturer {
   key ID: UUID;
-  productInformation: String(200);
-  targetAudiencePitch: String(200);
-  discount: Decimal(5,2);
-  warehouseStock: Association to Warehouse;
+  name: String(200);
 }
 
-entity Warehouse {
+entity MaterialType {
   key ID: UUID;
-  stock: Integer;
-  products: Composition of many Product on products.warehouseStock = $self;
+  typeName: String(200);
+}
+
+entity Color {
+  key ID: UUID;
+  colorName: String(200);
+}
+
+entity Spool {
+  key ID: UUID;
+  purchasePrice: Decimal(10,2);
+  purchaseDate: Date;
+  remainingAmount: Double;
+  weight: Double;
+  manufacturer: Association to Manufacturer;
+  materialType: Association to MaterialType;
+  color: Association to Color;
 }
 

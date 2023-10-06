@@ -1,57 +1,122 @@
-using { guitarstoreSrv } from '../srv/service.cds';
+using { filamentManagementSrv } from '../srv/service.cds';
 
-annotate guitarstoreSrv.Warehouse with @odata.draft.enabled;
-annotate guitarstoreSrv.Warehouse with @cds.odata.valuelist;
-annotate guitarstoreSrv.Product with @UI.HeaderInfo: { TypeName: 'Product', TypeNamePlural: 'Products', Title: { Value: productInformation } };
-annotate guitarstoreSrv.Product with {
-  ID @Common.Text: { $value: productInformation, ![@UI.TextArrangement]: #TextOnly }
+annotate filamentManagementSrv.Manufacturer with @odata.draft.enabled;
+annotate filamentManagementSrv.MaterialType with @odata.draft.enabled;
+annotate filamentManagementSrv.Color with @odata.draft.enabled;
+annotate filamentManagementSrv.Spool with @odata.draft.enabled;
+annotate filamentManagementSrv.Manufacturer with @cds.odata.valuelist;
+annotate filamentManagementSrv.MaterialType with @cds.odata.valuelist;
+annotate filamentManagementSrv.Color with @cds.odata.valuelist;
+annotate filamentManagementSrv.Manufacturer with @UI.HeaderInfo: { TypeName: 'Manufacturer', TypeNamePlural: 'Manufacturers', Title: { Value: name } };
+annotate filamentManagementSrv.Manufacturer with {
+  ID @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate guitarstoreSrv.Product with @UI.Identification: [{ Value: productInformation }];
-annotate guitarstoreSrv.Product with {
-  productInformation @title: 'Product Information';
-  targetAudiencePitch @title: 'Target Audience Pitch';
-  discount @title: 'Discount'
+annotate filamentManagementSrv.Manufacturer with @UI.Identification: [{ Value: name }];
+annotate filamentManagementSrv.Manufacturer with {
+  name @title: 'Name'
 };
 
-annotate guitarstoreSrv.Product with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: productInformation },
-    { $Type: 'UI.DataField', Value: targetAudiencePitch },
-    { $Type: 'UI.DataField', Value: discount }
+annotate filamentManagementSrv.Manufacturer with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: name }
 ];
 
-annotate guitarstoreSrv.Product with @UI.FieldGroup #Main: {
+annotate filamentManagementSrv.Manufacturer with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: productInformation },
-    { $Type: 'UI.DataField', Value: targetAudiencePitch },
-    { $Type: 'UI.DataField', Value: discount }
+    { $Type: 'UI.DataField', Value: name }
   ]
 };
 
-annotate guitarstoreSrv.Product with @UI.Facets: [
+annotate filamentManagementSrv.Manufacturer with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate guitarstoreSrv.Warehouse with @UI.HeaderInfo: { TypeName: 'Warehouse', TypeNamePlural: 'Warehouses', Title: { Value: stock } };
-annotate guitarstoreSrv.Warehouse with {
-  ID @Common.Text: { $value: stock, ![@UI.TextArrangement]: #TextOnly }
+annotate filamentManagementSrv.MaterialType with @UI.HeaderInfo: { TypeName: 'Material Type', TypeNamePlural: 'Material Types', Title: { Value: typeName } };
+annotate filamentManagementSrv.MaterialType with {
+  ID @Common.Text: { $value: typeName, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate guitarstoreSrv.Warehouse with @UI.Identification: [{ Value: stock }];
-annotate guitarstoreSrv.Warehouse with {
-  stock @title: 'Stock'
+annotate filamentManagementSrv.MaterialType with @UI.Identification: [{ Value: typeName }];
+annotate filamentManagementSrv.MaterialType with {
+  typeName @title: 'Type Name'
 };
 
-annotate guitarstoreSrv.Warehouse with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: stock }
+annotate filamentManagementSrv.MaterialType with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: typeName }
 ];
 
-annotate guitarstoreSrv.Warehouse with @UI.FieldGroup #Main: {
+annotate filamentManagementSrv.MaterialType with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: stock }
+    { $Type: 'UI.DataField', Value: typeName }
   ]
 };
 
-annotate guitarstoreSrv.Warehouse with @UI.Facets: [
-  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' },
-  { $Type : 'UI.ReferenceFacet', ID : 'Product', Target : 'products/@UI.LineItem' }
+annotate filamentManagementSrv.MaterialType with @UI.Facets: [
+  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
+];
+
+annotate filamentManagementSrv.Color with @UI.HeaderInfo: { TypeName: 'Color', TypeNamePlural: 'Colors', Title: { Value: colorName } };
+annotate filamentManagementSrv.Color with {
+  ID @Common.Text: { $value: colorName, ![@UI.TextArrangement]: #TextOnly }
+};
+annotate filamentManagementSrv.Color with @UI.Identification: [{ Value: colorName }];
+annotate filamentManagementSrv.Color with {
+  colorName @title: 'Color Name'
+};
+
+annotate filamentManagementSrv.Color with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: colorName }
+];
+
+annotate filamentManagementSrv.Color with @UI.FieldGroup #Main: {
+  $Type: 'UI.FieldGroupType', Data: [
+    { $Type: 'UI.DataField', Value: colorName }
+  ]
+};
+
+annotate filamentManagementSrv.Color with @UI.Facets: [
+  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
+];
+
+annotate filamentManagementSrv.Spool with @UI.HeaderInfo: { TypeName: 'Spool', TypeNamePlural: 'Spools', Title: { Value: purchaseDate } };
+annotate filamentManagementSrv.Spool with {
+  ID @Common.Text: { $value: purchaseDate, ![@UI.TextArrangement]: #TextOnly }
+};
+annotate filamentManagementSrv.Spool with @UI.Identification: [{ Value: purchaseDate }];
+annotate filamentManagementSrv.Spool with {
+  purchasePrice @title: 'Purchase Price';
+  purchaseDate @title: 'Purchase Date';
+  remainingAmount @title: 'Remaining Amount';
+  weight @title: 'Weight'
+};
+
+annotate filamentManagementSrv.Spool with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: purchasePrice },
+    { $Type: 'UI.DataField', Value: purchaseDate },
+    { $Type: 'UI.DataField', Value: remainingAmount },
+    { $Type: 'UI.DataField', Value: weight },
+    { $Type: 'UI.DataField', Label: 'Manufacturer', Value: manufacturer_ID },
+    { $Type: 'UI.DataField', Label: 'Material Type', Value: materialType_ID },
+    { $Type: 'UI.DataField', Label: 'Color', Value: color_ID }
+];
+
+annotate filamentManagementSrv.Spool with @UI.FieldGroup #Main: {
+  $Type: 'UI.FieldGroupType', Data: [
+    { $Type: 'UI.DataField', Value: purchasePrice },
+    { $Type: 'UI.DataField', Value: purchaseDate },
+    { $Type: 'UI.DataField', Value: remainingAmount },
+    { $Type: 'UI.DataField', Value: weight },
+    { $Type: 'UI.DataField', Label: 'Manufacturer', Value: manufacturer_ID },
+    { $Type: 'UI.DataField', Label: 'Material Type', Value: materialType_ID },
+    { $Type: 'UI.DataField', Label: 'Color', Value: color_ID }
+  ]
+};
+
+annotate filamentManagementSrv.Spool with {
+  manufacturer @Common.Text: { $value: manufacturer.name, ![@UI.TextArrangement]: #TextOnly };
+  materialType @Common.Text: { $value: materialType.typeName, ![@UI.TextArrangement]: #TextOnly };
+  color @Common.Text: { $value: color.colorName, ![@UI.TextArrangement]: #TextOnly }
+};
+
+annotate filamentManagementSrv.Spool with @UI.Facets: [
+  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
